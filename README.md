@@ -26,8 +26,6 @@ Users should be able to:
 
 ### Screenshot
 
-### Screenshot
-
 ![](./screenshots/desktop-design.png)
 ![](./screenshots/desktop-success-message.png)
 ![](./screenshots/desktop-active-states.png)
