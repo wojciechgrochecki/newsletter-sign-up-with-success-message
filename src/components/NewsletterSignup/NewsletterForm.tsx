@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
-import illustrastionDesktop from "../assets/images/illustration-sign-up-desktop.svg";
-import illustrastionMobile from "../assets/images/illustration-sign-up-mobile.svg";
-import iconSuccess from "../assets/images/icon-success.svg";
-import listIcon from "../assets/images/icon-list.svg";
+import illustrastionDesktop from "../../assets/images/illustration-sign-up-desktop.svg";
+import illustrastionMobile from "../../assets/images/illustration-sign-up-mobile.svg";
+import listIcon from "../../assets/images/icon-list.svg";
 
-export default function NewsletterForm({}) {
+interface NewsletterFormProps {
+  setEmail: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+const NewsletterForm: React.FC<NewsletterFormProps> = ({ setEmail }) => {
   const [emailValue, setEmailValue] = useState("");
   const [showError, setShowError] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
@@ -21,7 +24,14 @@ export default function NewsletterForm({}) {
     if (!didSubmit) {
       setShowError(!setClasses(isValid));
       setDidSubmit(true);
+      return;
     }
+
+    if (!isValid) {
+      return;
+    }
+
+    setEmail(emailValue);
   }
 
   function handleChange(value: string) {
@@ -51,9 +61,9 @@ export default function NewsletterForm({}) {
   }
 
   return (
-    <div>
+    <div className="h-full bg-neutral-white sm:bg-transparent">
       <div
-        className="grid min-h-full grid-flow-row bg-neutral-white sm:max-h-fit sm:min-h-fit
+        className="grid min-h-fit grid-flow-row bg-neutral-white sm:max-h-fit sm:min-h-fit
        sm:max-w-fit sm:grid-cols-2 sm:rounded-[1.75rem] sm:p-4 sm:pl-0 md:rounded-[2.5rem] md:p-6 md:pl-6 lg:grid-cols-[1fr_auto]
        "
       >
@@ -143,4 +153,6 @@ export default function NewsletterForm({}) {
       </div>
     </div>
   );
-}
+};
+
+export default NewsletterForm;
