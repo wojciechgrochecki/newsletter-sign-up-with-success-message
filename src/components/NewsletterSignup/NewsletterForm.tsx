@@ -21,17 +21,16 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({ setEmail }) => {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     let isValid = validateEmail(emailValue);
+
+    if (isValid) {
+      setEmail(emailValue);
+    }
+
     if (!didSubmit) {
       setShowError(!setClasses(isValid));
       setDidSubmit(true);
       return;
     }
-
-    if (!isValid) {
-      return;
-    }
-
-    setEmail(emailValue);
   }
 
   function handleChange(value: string) {
