@@ -1,9 +1,55 @@
+import React, { useState, useRef } from "react";
 import illustrastionDesktop from "../assets/images/illustration-sign-up-desktop.svg";
 import illustrastionMobile from "../assets/images/illustration-sign-up-mobile.svg";
 import iconSuccess from "../assets/images/icon-success.svg";
 import listIcon from "../assets/images/icon-list.svg";
 
 export default function NewsletterForm({}) {
+  const [emailValue, setEmailValue] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [didSubmit, setDidSubmit] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    let isValid = validateEmail(emailValue);
+    if (!didSubmit) {
+      setShowError(!setClasses(isValid));
+      setDidSubmit(true);
+    }
+  }
+
+  function handleChange(value: string) {
+    if (didSubmit) {
+      setShowError(!setClasses(validateEmail(value)));
+    }
+    setEmailValue(value);
+  }
+
+  function setClasses(isValid: boolean) {
+    if (!isValid) {
+      inputRef.current?.classList.add(
+        "text-primary-tomato",
+        "border-primary-tomato",
+        "bg-primary-tomato/20",
+        "focus:border-primary-tomato",
+      );
+    } else {
+      inputRef.current?.classList.remove(
+        "text-primary-tomato",
+        "border-primary-tomato",
+        "bg-primary-tomato/20",
+        "focus:border-primary-tomato",
+      );
+    }
+    return isValid;
+  }
+
   return (
     <div>
       <div
@@ -54,16 +100,32 @@ export default function NewsletterForm({}) {
                 <div>And much more!</div>
               </li>
             </ul>
-            <form action="" className="mt-3 flex flex-col gap-y-5 ">
+            <form
+              action=""
+              noValidate
+              onSubmit={handleSubmit}
+              className="mt-3 flex flex-col gap-y-5 "
+            >
               <div className="flex flex-col space-y-2">
-                <label htmlFor="emailInput" className="text-xs font-bold">
-                  Email address
+                <label
+                  htmlFor="emailInput"
+                  className="flex flex-row justify-between text-xs font-bold"
+                >
+                  Email address{" "}
+                  {showError && (
+                    <span className="text-primary-tomato">
+                      Valid email required
+                    </span>
+                  )}
                 </label>
                 <input
+                  ref={inputRef}
                   type="email"
                   id="emailInput"
+                  value={emailValue}
+                  onChange={(e) => handleChange(e.target.value)}
                   className="rounded-lg border border-neutral-grey px-6 py-4 outline-none  transition-all
-                  placeholder:text-neutral-grey focus:border-neutral-dark-slate-grey focus:outline-none focus:ring-0 sm:px-3
+                  placeholder:text-neutral-grey focus:border-neutral-dark-slate-grey  focus:outline-none focus:ring-0 sm:px-3
                   sm:py-3 md:px-4 md:py-4 lg:px-6  "
                   placeholder="email@company.com"
                 />
