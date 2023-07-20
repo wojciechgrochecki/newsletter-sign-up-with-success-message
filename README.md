@@ -32,8 +32,8 @@ Users should be able to:
 ![](./screenshots/desktop-success-message.png)
 ![](./screenshots/desktop-active-states.png)
 ![](./screenshots/desktop-error-state.png)
-![](./screenshots/mobile-design.png)
-![](./screenshots/mobile-success-message.png)
+<img src="./screenshots/mobile-design.png" height="500" alt="Mobile Design">
+<img src="./screenshots/mobile-success-message.png" height="500" alt="Mobile Success Message">
 
 ## My process
 
