@@ -1,7 +1,12 @@
 import "./App.css";
+import NewsletterForm from "./components/NewsletterForm";
 
 function App() {
-  return <h1 className="mb-10 font-medium">Hello world!</h1>;
+  return (
+    <div className="min-h-full  bg-neutral-charcoal-grey p-5 sm:grid sm:place-content-center ">
+      <NewsletterForm />
+    </div>
+  );
 }
 
 export default App;
